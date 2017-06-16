@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvv.p2p.dao.DictDtoMapper">
+	
+	<resultMap id="BaseResultMap" type="com.jvv.p2p.entity.DictDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="dict_type" property="dictType" jdbcType="VARCHAR" />
+		<result column="dict_key" property="dictKey" jdbcType="VARCHAR" />
+		<result column="val" property="val" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, dict_type, dict_key, val
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jvv.p2p.entity.DictDtoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from p2p_dict
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from p2p_dict
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from p2p_dict
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.jvv.p2p.entity.DictDtoExample">
+		delete from p2p_dict
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.jvv.p2p.entity.DictDto">
+		insert into p2p_dict (id, dict_type, dict_key,
+		val)
+		values (#{id,jdbcType=VARCHAR}, #{dictType,jdbcType=VARCHAR}, #{dictKey,jdbcType=VARCHAR},
+		#{val,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jvv.p2p.entity.DictDto">
+		insert into p2p_dict
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="dictType != null">
+				dict_type,
+			</if>
+			<if test="dictKey != null">
+				dict_key,
+			</if>
+			<if test="val != null">
+				val,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="dictType != null">
+				#{dictType,jdbcType=VARCHAR},
+			</if>
+			<if test="dictKey != null">
+				#{dictKey,jdbcType=VARCHAR},
+			</if>
+			<if test="val != null">
+				#{val,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.jvv.p2p.entity.DictDtoExample" resultType="java.lang.Integer">
+		select count(*) from p2p_dict
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update p2p_dict
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.dictType != null">
+				dict_type = #{record.dictType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.dictKey != null">
+				dict_key = #{record.dictKey,jdbcType=VARCHAR},
+			</if>
+			<if test="record.val != null">
+				val = #{record.val,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update p2p_dict
+		set id = #{record.id,jdbcType=VARCHAR},
+		dict_type = #{record.dictType,jdbcType=VARCHAR},
+		dict_key = #{record.dictKey,jdbcType=VARCHAR},
+		val = #{record.val,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jvv.p2p.entity.DictDto">
+		update p2p_dict
+		<set>
+			<if test="dictType != null">
+				dict_type = #{dictType,jdbcType=VARCHAR},
+			</if>
+			<if test="dictKey != null">
+				dict_key = #{dictKey,jdbcType=VARCHAR},
+			</if>
+			<if test="val != null">
+				val = #{val,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jvv.p2p.entity.DictDto">
+		update p2p_dict
+		set dict_type = #{dictType,jdbcType=VARCHAR},
+		dict_key = #{dictKey,jdbcType=VARCHAR},
+		val = #{val,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

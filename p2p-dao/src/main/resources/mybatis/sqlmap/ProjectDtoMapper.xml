@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvv.p2p.dao.ProjectDtoMapper">
+	
+	<resultMap id="BaseResultMap" type="com.jvv.p2p.entity.ProjectDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+		<result column="ext_id" property="extId" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="amonut" property="amonut" jdbcType="DECIMAL" />
+		<result column="rate" property="rate" jdbcType="VARCHAR" />
+		<result column="state" property="state" jdbcType="VARCHAR" />
+		<result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="activity" property="activity" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, channel_id, ext_id, name, memo, amonut, rate, state, updatetime, createtime,
+		activity
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jvv.p2p.entity.ProjectDtoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from p2p_project
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from p2p_project
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from p2p_project
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.jvv.p2p.entity.ProjectDtoExample">
+		delete from p2p_project
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.jvv.p2p.entity.ProjectDto">
+		insert into p2p_project (id, channel_id, ext_id,
+		name, memo, amonut,
+		rate, state, updatetime,
+		createtime, activity)
+		values (#{id,jdbcType=VARCHAR}, #{channelId,jdbcType=VARCHAR}, #{extId,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{amonut,jdbcType=DECIMAL},
+		#{rate,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP},
+		#{createtime,jdbcType=TIMESTAMP}, #{activity,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jvv.p2p.entity.ProjectDto">
+		insert into p2p_project
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="channelId != null">
+				channel_id,
+			</if>
+			<if test="extId != null">
+				ext_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+			<if test="amonut != null">
+				amonut,
+			</if>
+			<if test="rate != null">
+				rate,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="activity != null">
+				activity,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="extId != null">
+				#{extId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="amonut != null">
+				#{amonut,jdbcType=DECIMAL},
+			</if>
+			<if test="rate != null">
+				#{rate,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="activity != null">
+				#{activity,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.jvv.p2p.entity.ProjectDtoExample" resultType="java.lang.Integer">
+		select count(*) from p2p_project
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update p2p_project
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.channelId != null">
+				channel_id = #{record.channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.extId != null">
+				ext_id = #{record.extId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.memo != null">
+				memo = #{record.memo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.amonut != null">
+				amonut = #{record.amonut,jdbcType=DECIMAL},
+			</if>
+			<if test="record.rate != null">
+				rate = #{record.rate,jdbcType=VARCHAR},
+			</if>
+			<if test="record.state != null">
+				state = #{record.state,jdbcType=VARCHAR},
+			</if>
+			<if test="record.updatetime != null">
+				updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.createtime != null">
+				createtime = #{record.createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.activity != null">
+				activity = #{record.activity,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update p2p_project
+		set id = #{record.id,jdbcType=VARCHAR},
+		channel_id = #{record.channelId,jdbcType=VARCHAR},
+		ext_id = #{record.extId,jdbcType=VARCHAR},
+		name = #{record.name,jdbcType=VARCHAR},
+		memo = #{record.memo,jdbcType=VARCHAR},
+		amonut = #{record.amonut,jdbcType=DECIMAL},
+		rate = #{record.rate,jdbcType=VARCHAR},
+		state = #{record.state,jdbcType=VARCHAR},
+		updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+		createtime = #{record.createtime,jdbcType=TIMESTAMP},
+		activity = #{record.activity,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jvv.p2p.entity.ProjectDto">
+		update p2p_project
+		<set>
+			<if test="channelId != null">
+				channel_id = #{channelId,jdbcType=VARCHAR},
+			</if>
+			<if test="extId != null">
+				ext_id = #{extId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="amonut != null">
+				amonut = #{amonut,jdbcType=DECIMAL},
+			</if>
+			<if test="rate != null">
+				rate = #{rate,jdbcType=VARCHAR},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="activity != null">
+				activity = #{activity,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jvv.p2p.entity.ProjectDto">
+		update p2p_project
+		set channel_id = #{channelId,jdbcType=VARCHAR},
+		ext_id = #{extId,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		amonut = #{amonut,jdbcType=DECIMAL},
+		rate = #{rate,jdbcType=VARCHAR},
+		state = #{state,jdbcType=VARCHAR},
+		updatetime = #{updatetime,jdbcType=TIMESTAMP},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		activity = #{activity,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

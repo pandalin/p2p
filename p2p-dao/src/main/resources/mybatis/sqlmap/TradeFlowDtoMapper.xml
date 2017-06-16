@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jvv.p2p.dao.TradeFlowDtoMapper">
+	
+	
+	<resultMap id="BaseResultMap" type="com.jvv.p2p.entity.TradeFlowDto">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="order_id" property="orderId" jdbcType="VARCHAR" />
+		<result column="ext_user_id" property="extUserId" jdbcType="VARCHAR" />
+		<result column="redpacketid" property="redpacketid" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="ext_trade_id" property="extTradeId" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem" open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, order_id, ext_user_id, redpacketid, createtime, amount, ext_trade_id
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap" parameterType="com.jvv.p2p.entity.TradeFlowDtoExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from p2p_trade_flow
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from p2p_trade_flow
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from p2p_trade_flow
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.jvv.p2p.entity.TradeFlowDtoExample">
+		delete from p2p_trade_flow
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.jvv.p2p.entity.TradeFlowDto">
+		insert into p2p_trade_flow (id, order_id, ext_user_id,
+		redpacketid, createtime, amount,
+		ext_trade_id)
+		values (#{id,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{extUserId,jdbcType=VARCHAR},
+		#{redpacketid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{amount,jdbcType=DECIMAL},
+		#{extTradeId,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.jvv.p2p.entity.TradeFlowDto">
+		insert into p2p_trade_flow
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="extUserId != null">
+				ext_user_id,
+			</if>
+			<if test="redpacketid != null">
+				redpacketid,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="extTradeId != null">
+				ext_trade_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="extUserId != null">
+				#{extUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="redpacketid != null">
+				#{redpacketid,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="extTradeId != null">
+				#{extTradeId,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.jvv.p2p.entity.TradeFlowDtoExample" resultType="java.lang.Integer">
+		select count(*) from p2p_trade_flow
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update p2p_trade_flow
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orderId != null">
+				order_id = #{record.orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.extUserId != null">
+				ext_user_id = #{record.extUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.redpacketid != null">
+				redpacketid = #{record.redpacketid,jdbcType=VARCHAR},
+			</if>
+			<if test="record.createtime != null">
+				createtime = #{record.createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.amount != null">
+				amount = #{record.amount,jdbcType=DECIMAL},
+			</if>
+			<if test="record.extTradeId != null">
+				ext_trade_id = #{record.extTradeId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update p2p_trade_flow
+		set id = #{record.id,jdbcType=VARCHAR},
+		order_id = #{record.orderId,jdbcType=VARCHAR},
+		ext_user_id = #{record.extUserId,jdbcType=VARCHAR},
+		redpacketid = #{record.redpacketid,jdbcType=VARCHAR},
+		createtime = #{record.createtime,jdbcType=TIMESTAMP},
+		amount = #{record.amount,jdbcType=DECIMAL},
+		ext_trade_id = #{record.extTradeId,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.jvv.p2p.entity.TradeFlowDto">
+		update p2p_trade_flow
+		<set>
+			<if test="orderId != null">
+				order_id = #{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="extUserId != null">
+				ext_user_id = #{extUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="redpacketid != null">
+				redpacketid = #{redpacketid,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="extTradeId != null">
+				ext_trade_id = #{extTradeId,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jvv.p2p.entity.TradeFlowDto">
+		update p2p_trade_flow
+		set order_id = #{orderId,jdbcType=VARCHAR},
+		ext_user_id = #{extUserId,jdbcType=VARCHAR},
+		redpacketid = #{redpacketid,jdbcType=VARCHAR},
+		createtime = #{createtime,jdbcType=TIMESTAMP},
+		amount = #{amount,jdbcType=DECIMAL},
+		ext_trade_id = #{extTradeId,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

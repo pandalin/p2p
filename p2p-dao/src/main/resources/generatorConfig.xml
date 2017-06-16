@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<context id="testTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.1.242:3306/jvv_p2p_test?user=root&amp;password=111111&amp;useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="111111">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.jvv.p2p.entity" targetProject="MAVEN">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="false" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mybatis.sqlmap" targetProject="MAVEN">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.jvv.p2p.dao" targetProject="MAVEN">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- table -->
+
+		<!-- product -->
+		<table tableName="p2p_channel" domainObjectName="ChannelDto">
+		</table>
+
+		<table tableName="p2p_dict" domainObjectName="DictDto">
+		</table>
+
+		<table tableName="p2p_ext_user" domainObjectName="ExtUserDto">
+		</table>
+
+		<table tableName="p2p_project" domainObjectName="ProjectDto">
+		</table>
+
+		<table tableName="p2p_order" domainObjectName="OrderDto">
+		</table>
+
+
+		<table tableName="p2p_recharge_flow" domainObjectName="RechargeFlowDto">
+		</table>
+
+		<table tableName="p2p_repay_flow" domainObjectName="RepayFlowDto">
+		</table>
+
+		<table tableName="p2p_trade_flow" domainObjectName="TradeFlowDto">
+		</table>
+
+		<table tableName="p2p_withdraw_flow" domainObjectName="WithDrawFlowDto">
+		</table>
+
+		<table tableName="p2p_trade" domainObjectName="TradeDto">
+			<columnOverride column="trade_status" javaType="Integer" />
+			<columnOverride column="status" javaType="Integer" />
+			
+		</table>
+		
+		<table tableName="p2p_trade_demand" domainObjectName="DemandDto">
+		</table>
+		
+
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>p2p</artifactId>
+		<groupId>com.jvv</groupId>
+		<version>1.0.3</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>war</packaging>
+
+
+	<artifactId>p2p-web</artifactId>
+
+	<dependencies>
+		<!-- p2p -->
+		<dependency>
+			<groupId>com.jvv</groupId>
+			<artifactId>p2p-biz</artifactId>
+		</dependency>
+		
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+	</dependencies>
+
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>test</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.build.outputDirectory}/log4j.properties" />
+										<copy file="src/main/resources/log4j-test.properties" tofile="${project.build.outputDirectory}/log4j.properties" />
+
+										<delete file="${project.build.outputDirectory}/log4j-test.properties" />
+										<delete file="${project.build.outputDirectory}/log4j-product.properties" />
+
+									</tasks>
+								</configuration>
+							</execution>
+
+						</executions>
+					</plugin>
+
+
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>product</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>test</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.build.outputDirectory}/log4j.properties" />
+										<copy file="src/main/resources/log4j-product.properties" tofile="${project.build.outputDirectory}/log4j.properties" />
+
+										<delete file="${project.build.outputDirectory}/log4j-test.properties" />
+										<delete file="${project.build.outputDirectory}/log4j-product.properties" />
+
+									</tasks>
+								</configuration>
+							</execution>
+
+						</executions>
+					</plugin>
+
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+
+</project>

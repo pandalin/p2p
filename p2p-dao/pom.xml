@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>p2p</artifactId>
+		<groupId>com.jvv</groupId>
+		<version>1.0.3</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>p2p-dao</artifactId>
+
+	<dependencies>
+		<!-- p2p -->
+		<dependency>
+			<groupId>com.jvv</groupId>
+			<artifactId>p2p-entity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jvv</groupId>
+			<artifactId>p2p-util</artifactId>
+		</dependency>
+
+
+
+		<!-- spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<!-- transcation -->
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jta</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.atomikos</groupId>
+			<artifactId>transactions-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+		</dependency>
+
+		<!-- db -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.caches</groupId>
+			<artifactId>mybatis-redis</artifactId>
+			<version>1.0.0-beta1</version>
+		</dependency>
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+
+		<!-- mysql jdbc drive -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- oracle jdbc drive -->
+
+
+		<!-- JSR-330 -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.35</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>test</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.build.outputDirectory}/jdbc.properties" />
+										<copy file="src/main/resources/jdbc-test.properties" tofile="${project.build.outputDirectory}/jdbc.properties" />
+
+										<delete file="${project.build.outputDirectory}/jdbc-test.properties" />
+										<delete file="${project.build.outputDirectory}/jdbc-product.properties" />
+
+
+										<delete file="${project.build.outputDirectory}/redis.properties" />
+										<copy file="src/main/resources/redis-test.properties" tofile="${project.build.outputDirectory}/redis.properties" />
+
+										<delete file="${project.build.outputDirectory}/redis-test.properties" />
+										<delete file="${project.build.outputDirectory}/redis-product.properties" />
+
+									</tasks>
+								</configuration>
+							</execution>
+
+						</executions>
+					</plugin>
+
+
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>product</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<executions>
+							<execution>
+								<id>product</id>
+								<phase>compile</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete file="${project.build.outputDirectory}/jdbc.properties" />
+										<copy file="src/main/resources/jdbc-product.properties" tofile="${project.build.outputDirectory}/jdbc.properties" />
+
+										<delete file="${project.build.outputDirectory}/jdbc-test.properties" />
+										<delete file="${project.build.outputDirectory}/jdbc-product.properties" />
+
+
+										<delete file="${project.build.outputDirectory}/redis.properties" />
+										<copy file="src/main/resources/redis-product.properties" tofile="${project.build.outputDirectory}/redis.properties" />
+
+										<delete file="${project.build.outputDirectory}/redis-test.properties" />
+										<delete file="${project.build.outputDirectory}/redis-product.properties" />
+
+									</tasks>
+								</configuration>
+							</execution>
+
+						</executions>
+					</plugin>
+
+
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
